@@ -1,4 +1,4 @@
-module github.com/chaosblade-io/chaos-agent
+module github.com/lomoonmoonbird/chaos-agent
 
 go 1.20
 
