@@ -20,11 +20,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"os/exec"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/chaosblade-io/chaos-agent/pkg/tools"
 )
@@ -57,7 +58,7 @@ func ExecScript(ctx context.Context, script, args string) (string, string, bool)
 	if tools.IsWindows() {
 		cmd = exec.CommandContext(ctx, "cmd.exe", "/c", script+" "+args)
 	} else {
-		cmd = exec.CommandContext(ctx, "/bin/sh", "-c", script+" "+args)
+		cmd = exec.CommandContext(ctx, "sudo /bin/sh", "-c", script+" "+args)
 	}
 
 	output, err := cmd.CombinedOutput()
