@@ -13,7 +13,7 @@ BUILD_IMAGE_ARM64_PATH=build/image_arm
 BUILD_HELM_PATH=build/helm3/chaos-agent/
 BUILD_BINARY_PATH=build
 
-VERSION_PKG=github.com/chaosblade-io/chaos-agent/version
+VERSION_PKG=github.com/lomoonmoonbird/chaos-agent/version
 
 GO_ENV=CGO_ENABLED=1
 GO_MODULE=GO111MODULE=on
@@ -36,14 +36,14 @@ build_binary: cmd/chaos_agent.go
 build_linux:
 	docker build -f $(BUILD_BINARY_MUSL_PATH)/Dockerfile -t agent-build-musl:latest $(BUILD_BINARY_MUSL_PATH)
 	docker run --rm \
-    		-v $(shell echo -n ${GOPATH}):/go \
+    		-v $(shell go env GOPATH):/go \
     		-w /chaos-agent \
     		-v $(BLADE_SRC_ROOT):/chaos-agent \
     		agent-build-musl:latest
 build_arm64:
 	docker build -f $(BUILD_BINARY_ARM64_PATH)/Dockerfile -t agent-build-arm:latest $(BUILD_BINARY_ARM64_PATH)
 	docker run --rm \
-    		-v $(shell echo -n ${GOPATH}):/go \
+    		-v $(shell go env GOPATH):/go \
     		-w /chaos-agent \
     		-v $(BLADE_SRC_ROOT):/chaos-agent \
     		agent-build-arm:latest
