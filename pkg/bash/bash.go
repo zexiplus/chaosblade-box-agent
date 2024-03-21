@@ -58,7 +58,7 @@ func ExecScript(ctx context.Context, script, args string) (string, string, bool)
 	if tools.IsWindows() {
 		cmd = exec.CommandContext(ctx, "cmd.exe", "/c", script+" "+args)
 	} else {
-		cmd = exec.CommandContext(ctx, "sudo", " /bin/sh -c", script+" "+args)
+		cmd = exec.CommandContext(ctx, "sudo", script+" "+args)
 	}
 
 	output, err := cmd.CombinedOutput()
