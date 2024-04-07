@@ -4,6 +4,7 @@ namespace="default"
 license=""
 appInstance="chaos-default-app"
 appGroup="chaos-default-app-group"
+host=""
 port="19527"
 endpoint=""
 
@@ -161,6 +162,7 @@ Install Command Options:
   -k license    CHAOS License
   -p applicationInstance The application instance name to which the specified machine belongs，default is chaos-default-app.
   -g applicationGroup The application group to which the specified machine belongs,default is chaos-default-app-group.
+  -h CHAOS Agent IP
   -P port       CHAOS Agent listen port, default is 19527
   -t endpoint   CHAOS endpoint
 "
@@ -204,6 +206,9 @@ create_flags() {
     fi
     if [ -n "${appGroup}" ]; then
       flags="${flags} --appGroup ${appGroup}"
+    fi
+    if [ -n "${host}" ]; then
+      flags="${flags} --localIp ${host}"
     fi
     if [ -n "${port}" ]; then
       flags="${flags} --port ${port}"
@@ -271,6 +276,8 @@ stop() {
   fi
   pkill -9 -f "${process}"
   rm_rf ${PID_FILE}
+  local crontabFile=${crontabPath}/${crontabFileName}
+  rm_rf ${crontabFile}
   log_info "[+stop] chaos is stopped."
 }
 
@@ -316,10 +323,84 @@ add_crontab() {
   chmod 644 ${crontabFile}
 }
 
+change_authorize(){
+  sudo chmod -R 777 ${DEST_PATH}/${DEST_FILENAME}
+  sudo chmod -R 777 /opt/chaosblade
+  log_info "[+authorization] add rwx auth"
+}
+
+#添加防火墙
+add_firewall(){
+  firewalld_running=$(sudo systemctl is-active firewalld.service)
+  if [[ "$firewalld_running" == "active" ]]; then
+      sudo firewall-cmd --zone=public --add-port=${port}/tcp --add-port=${port}/udp --permanent &>/dev/null
+      sudo firewall-cmd --reload 1>/dev/null
+      log_info "[+firewall] add firewalld rule"
+  else
+      sudo iptables -A INPUT -p tcp --dport ${port}  -j ACCEPT
+      sudo iptables -A INPUT -p udp --dport ${port}  -j ACCEPT
+      sudo iptables-save &>/dev/null
+      log_info "[+firewall] add iptables rule"
+  fi
+  
+}
+
+#删除防火墙
+remove_firewall(){
+  firewalld_running=$(systemctl is-active firewalld.service)
+  if [[ "$firewalld_running" == "active" ]]; then
+      tcp_record_exist = $(sudo firewall-cmd --query-port=${port}/tcp)
+      udp_record_exist = $(sudo firewall-cmd --query-port=${port}/udp)
+      if [[ "$tcp_record_exist" == "yes" ]]; then
+        sudo firewall-cmd --zone=public --remove-port=${port}/tcp --permanent &>/dev/null
+      fi
+      if [[ "$udp_record_exist" == "yes" ]]; then
+        sudo firewall-cmd --zone=public --remove-port=${port}/udp --permanent &>/dev/null
+      fi
+      sudo firewall-cmd --reload &>/dev/null
+      log_info "[-firewall] remove firewall rule"
+  fi
+  line_numbers=$(sudo iptables -L INPUT --line-numbers | grep "tcp dpt:${port}" | awk '{print $1}')
+
+  if [ -n "$line_numbers" ]; then
+      for line_number in $line_numbers; do
+          sudo iptables -D INPUT $line_number 
+      done
+  fi
+
+  line_numbers=$(sudo iptables -L INPUT --line-numbers | grep "udp dpt:${port}" | awk '{print $1}')
+
+  if [ -n "$line_numbers" ]; then
+      for line_number in $line_numbers; do
+          sudo iptables -D INPUT $line_number     
+      done
+  fi
+
+  line_numbers=$(sudo iptables -L IN_public_allow --line-numbers | grep "tcp dpt:${port}" | awk '{print $1}')
+
+  if [ -n "$line_numbers" ]; then
+      for line_number in $line_numbers; do
+          sudo iptables -D IN_public_allow $line_number 
+      done
+  fi
+
+  line_numbers=$(sudo iptables -L IN_public_allow --line-numbers | grep "udp dpt:${port}" | awk '{print $1}')
+
+  if [ -n "$line_numbers" ]; then
+      for line_number in $line_numbers; do
+          sudo iptables -D IN_public_allow $line_number     
+      done
+  fi
+
+  
+  sudo iptables-save &>/dev/null
+  log_info "[-firewall] remove iptables rule"
+}
+
 action="$1"
 shift
 
-while getopts ":n:k:m:p:g:P:t:" opt; do
+while getopts ":n:k:m:p:g:h:P:t:" opt; do
   case ${opt} in
   n)
     namespace="${OPTARG}"
@@ -335,6 +416,9 @@ while getopts ":n:k:m:p:g:P:t:" opt; do
     ;;
   g)
     appGroup="${OPTARG}"
+    ;;
+  h)
+    host="${OPTARG}"
     ;;
   P)
     port="${OPTARG}"
@@ -356,12 +440,16 @@ install)
   deploy_chaosblade
   check_endpoint
   checkChaosBin
+  add_firewall
+  change_authorize
   start
+  
   ;;
 uninstall)
   stop
   uninstall
   uninstall_check
+  remove_firewall
   ;;
 start)
   if [ ! "${startupMode}" = ${crontabMode} ]; then
@@ -369,9 +457,13 @@ start)
     check_license
     check_root
     check_endpoint
+    change_authorize
+    add_crontab
   fi
 
   checkChaosBin
+  change_authorize
+  stop
   start
   ;;
 stop)
