@@ -209,6 +209,7 @@ func (o *Options) AddFlags() {
 	o.Flags.StringVar(&o.LitmusChartUrl, "litmus.chart.url", "", "the chart repositories of litmusChaos")
 	o.Flags.StringVar(&o.CertUrl, "cert.url", "", "the download url of cert")
 
+	o.Flags.StringVar(&o.Ip, "localIp", "", "the ip of agent")
 	o.Flags.StringVar(&o.Port, "port", "19527", "the agent server port")
 
 	o.Flags.BoolVarP(&o.Help, "help", "h", false, "Print Help text")
@@ -221,7 +222,10 @@ func (o *Options) SetOthersByFlags() {
 	o.IsVpc = false
 	o.VpcId = o.License
 	o.Uid = ""
-	o.Ip = o.GetPrivateIp()
+	o.Ip = o.Ip
+	if o.Ip == "" {
+		o.Ip = o.GetPrivateIp()
+	}
 	o.HostName = o.GetHostName()
 	o.InstanceId = o.GetHostName()
 	o.Version = "1.0.3"
