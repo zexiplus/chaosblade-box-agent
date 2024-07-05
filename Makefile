@@ -13,7 +13,7 @@ BUILD_IMAGE_ARM64_PATH=build/image_arm
 BUILD_HELM_PATH=build/helm3/chaos-agent/
 BUILD_BINARY_PATH=build
 
-VERSION_PKG=github.com/lomoonmoonbird/chaos-agent/version
+VERSION_PKG=github.com/zexiplus/chaos-agent/version
 
 GO_ENV=CGO_ENABLED=1
 GO_MODULE=GO111MODULE=on

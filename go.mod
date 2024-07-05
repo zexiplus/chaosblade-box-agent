@@ -1,4 +1,4 @@
-module github.com/lomoonmoonbird/chaos-agent
+module github.com/zexiplus/chaos-agent
 
 go 1.20
 
