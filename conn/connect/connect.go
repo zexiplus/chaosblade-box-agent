@@ -25,9 +25,9 @@ import (
 	"github.com/c9s/goprocinfo/linux"
 	"github.com/sirupsen/logrus"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 type ClientConnectHandler struct {

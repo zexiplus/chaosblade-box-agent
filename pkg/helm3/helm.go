@@ -30,7 +30,7 @@ import (
 	"helm.sh/helm/v3/pkg/release"
 	"helm.sh/helm/v3/pkg/strvals"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/helm3/registry"
+	"github.com/zexiplus/chaos-agent/pkg/helm3/registry"
 )
 
 // https://github.com/helm/helm/issues/8255

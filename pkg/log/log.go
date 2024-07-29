@@ -22,8 +22,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
 )
 
 const DebugLevel = "debug"

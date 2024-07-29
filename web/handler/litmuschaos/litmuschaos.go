@@ -39,15 +39,15 @@ import (
 	"k8s.io/client-go/rest"
 	k8symaml "sigs.k8s.io/yaml"
 
-	"github.com/chaosblade-io/chaos-agent/conn/asyncreport"
-	"github.com/chaosblade-io/chaos-agent/pkg/kubernetes"
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
 	v1alpha1 "github.com/litmuschaos/chaos-operator/api/litmuschaos/v1alpha1"
 	chaosClient "github.com/litmuschaos/chaos-operator/pkg/client/clientset/versioned/typed/litmuschaos/v1alpha1"
+	"github.com/zexiplus/chaos-agent/conn/asyncreport"
+	"github.com/zexiplus/chaos-agent/pkg/kubernetes"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
 
-	//"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	//"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 type LitmusChaosHandler struct {

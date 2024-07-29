@@ -26,8 +26,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/bash"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
+	"github.com/zexiplus/chaos-agent/pkg/bash"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
 )
 
 const (

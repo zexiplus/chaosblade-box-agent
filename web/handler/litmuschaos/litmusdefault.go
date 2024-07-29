@@ -23,7 +23,7 @@ import (
 	rbacV1 "k8s.io/api/rbac/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/pkg/options"
 )
 
 type ChaosEngine struct {

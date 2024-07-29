@@ -23,7 +23,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/chaosblade-io/chaos-agent/conn/heartbeat"
+	"github.com/zexiplus/chaos-agent/conn/heartbeat"
 )
 
 type defaultChecker struct {

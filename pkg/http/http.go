@@ -32,8 +32,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 type HttpClient struct {

@@ -23,10 +23,10 @@ import (
 	"github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/chaosblade-io/chaos-agent/collector/kubernetes"
-	k8s "github.com/chaosblade-io/chaos-agent/pkg/kubernetes"
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	"github.com/zexiplus/chaos-agent/collector/kubernetes"
+	k8s "github.com/zexiplus/chaos-agent/pkg/kubernetes"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 type MetricCollector interface {

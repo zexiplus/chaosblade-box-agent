@@ -17,13 +17,13 @@
 package api
 
 import (
-	"github.com/chaosblade-io/chaos-agent/pkg/helm3"
-	"github.com/chaosblade-io/chaos-agent/pkg/kubernetes"
-	"github.com/chaosblade-io/chaos-agent/transport"
-	chaosweb "github.com/chaosblade-io/chaos-agent/web"
-	"github.com/chaosblade-io/chaos-agent/web/handler"
-	"github.com/chaosblade-io/chaos-agent/web/handler/litmuschaos"
-	"github.com/chaosblade-io/chaos-agent/web/server"
+	"github.com/zexiplus/chaos-agent/pkg/helm3"
+	"github.com/zexiplus/chaos-agent/pkg/kubernetes"
+	"github.com/zexiplus/chaos-agent/transport"
+	chaosweb "github.com/zexiplus/chaos-agent/web"
+	"github.com/zexiplus/chaos-agent/web/handler"
+	"github.com/zexiplus/chaos-agent/web/handler/litmuschaos"
+	"github.com/zexiplus/chaos-agent/web/server"
 )
 
 type API struct {

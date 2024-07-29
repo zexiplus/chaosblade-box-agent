@@ -20,7 +20,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/chaosblade-io/chaos-agent/web"
+	"github.com/zexiplus/chaos-agent/web"
 )
 
 type GatewayServer struct {

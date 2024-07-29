@@ -29,9 +29,9 @@ import (
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/chaosblade-io/chaos-agent/pkg/kubernetes"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	"github.com/zexiplus/chaos-agent/pkg/kubernetes"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 type NodeCapacity struct {

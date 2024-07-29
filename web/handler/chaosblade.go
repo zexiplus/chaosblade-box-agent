@@ -26,11 +26,11 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	"github.com/chaosblade-io/chaos-agent/conn/asyncreport"
-	"github.com/chaosblade-io/chaos-agent/pkg/bash"
-	"github.com/chaosblade-io/chaos-agent/pkg/options"
-	"github.com/chaosblade-io/chaos-agent/pkg/tools"
-	"github.com/chaosblade-io/chaos-agent/transport"
+	"github.com/zexiplus/chaos-agent/conn/asyncreport"
+	"github.com/zexiplus/chaos-agent/pkg/bash"
+	"github.com/zexiplus/chaos-agent/pkg/options"
+	"github.com/zexiplus/chaos-agent/pkg/tools"
+	"github.com/zexiplus/chaos-agent/transport"
 )
 
 const serviceName = "chaosblade"
